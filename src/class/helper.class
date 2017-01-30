@@ -1,0 +1,35 @@
+<?php
+
+class Helper
+{
+    /**
+     * Construct won't be called inside this class and is uncallable from
+     * the outside. This prevents instantiating this class.
+     * This is by purpose, because we want a static class.
+     */
+    private function __construct() {}
+    private static $initialized = false;
+
+    private static function initialize()
+    {
+        if (self::$initialized)
+            return;
+
+        self::$initialized = true;
+    }
+
+    public static function process_results($results)
+    {
+        self::initialize();
+        $return = array();
+        $return['success'] = false;
+        
+        if (count($results)) {
+            $return['data'] = $results;
+            $return['success'] = true;
+        }
+        
+        echo json_encode($return);
+        exit();
+    }
+}

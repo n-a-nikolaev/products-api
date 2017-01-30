@@ -6,20 +6,23 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/groups', function (Request $request, Response $response) {
-    $return = array();
-    $return['success'] = false;
-
     $db = new DB();
     $db->connect();
 
     $query = 'SELECT * FROM `groups`';
     $result = $db->select($query);
 
-    if (count($result)) {
-        $return['data'] = $result;
-        $return['success'] = true;
-    }
+    Helper::process_results($result);
+});
 
-    echo json_encode($return);
-    exit();
+$app->get('/groups/{id}', function (Request $request, Response $response) {
+    $id = $request->getAttribute('id');
+
+    $db = new DB();
+    $db->connect();
+
+    $query = 'SELECT * FROM `groups` WHERE id=' . $id;
+    $result = $db->select($query);
+
+    Helper::process_results($result);
 });
