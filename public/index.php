@@ -1,9 +1,5 @@
 <?php
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-
-
 require '../src/class/db.class';
 require '../src/class/helper.class';
 require '../vendor/autoload.php';
